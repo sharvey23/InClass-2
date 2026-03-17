@@ -1,51 +1,94 @@
-<!DOCTYPE HTML>
-<html>
-  <head>
-    <title>In-Class Assignment 2</title>
-     <link rel="stylesheet" href="style.css">
-  </head>
-  <body>
-    <h1>Welcome to the Interactive Reveal What’s that Animal UI</h1>
-    <h1>Click on the buttons below to reveal the animal images</h1>
-    <!-- Overlay -->
-  <div id="overlay" class="overlay"></div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Animal Reveal UI</title>
+<>
+</head>
 
-  <!-- Popups -->
-  <div id="popup1" class="popup">
-    <img src="https://via.placeholder.com/300x200?text=Image+1">
-    <button onclick="closePopup()">Close</button>
+<body>
+
+<div class="container">
+
+  <div class="header-box">
+    Welcome to the Interactive Reveal What’s that Animal UI
   </div>
 
-  <div id="popup2" class="popup">
-    <img src="https://via.placeholder.com/300x200?text=Image+2">
-    <button onclick="closePopup()">Close</button>
+  <div class="header-box">
+    Click on the buttons below to reveal the animal images
   </div>
 
-  <div id="popup3" class="popup">
-    <img src="https://via.placeholder.com/300x200?text=Image+3">
-    <button onclick="closePopup()">Close</button>
+  <!-- Animal Displays -->
+  <div id="catBox" class="animal-box left-box">
+    <img src="https://placekitten.com/200/150">
+    <button class="hide-btn" onclick="hideAnimal('cat')">Hide Result</button>
   </div>
 
-  <!-- Bottom Buttons -->
-  <div class="bottom-bar">
-    <button onclick="openPopup('popup1')">Left</button>
-    <button class="center-btn" onclick="openPopup('popup2')">Center</button>
-    <button onclick="openPopup('popup3')">Right</button>
+  <div id="dogBox" class="animal-box center-box">
+    <img src="https://placedog.net/200/150">
+    <button class="hide-btn" onclick="hideAnimal('dog')">Hide Result</button>
   </div>
 
-  <script>
-    function openPopup(id) {
-      document.getElementById('overlay').style.display = 'block';
-      document.getElementById(id).style.display = 'block';
+  <div id="cowBox" class="animal-box right-box">
+    <img src="https://via.placeholder.com/200x150?text=Cow">
+    <button class="hide-btn" onclick="hideAnimal('cow')">Hide Result</button>
+  </div>
+
+  <!-- Buttons -->
+  <div class="button-row">
+    <button id="catBtn" class="btn left" onclick="showAnimal('cat')">Reveal a CAT</button>
+    <button id="dogBtn" class="btn center" onclick="showAnimal('dog')">Reveal a DOG</button>
+    <button id="cowBtn" class="btn right" onclick="showAnimal('cow')">Reveal a COW</button>
+  </div>
+
+  <!-- Bottom controls -->
+  <div class="bottom-controls">
+    <button class="reset-btn" onclick="resetZoo()">Reset Zoo</button>
+    <div id="counter" class="counter-box">Animals on screen: 0</div>
+  </div>
+
+</div>
+
+<script>
+  let count = 0;
+
+  function showAnimal(type) {
+    const box = document.getElementById(type + "Box");
+    const btn = document.getElementById(type + "Btn");
+
+    if (box.style.display !== "block") {
+      box.style.display = "block";
+      btn.classList.add("active");
+      count++;
+      updateCounter();
     }
+  }
 
-    function closePopup() {
-      document.getElementById('overlay').style.display = 'none';
+  function hideAnimal(type) {
+    const box = document.getElementById(type + "Box");
+    const btn = document.getElementById(type + "Btn");
 
-      document.querySelectorAll('.popup').forEach(p => {
-        p.style.display = 'none';
-      });
-    }
-  </script>
-  </body>
+    box.style.display = "none";
+    btn.classList.remove("active");
+    count--;
+    updateCounter();
+  }
+
+  function resetZoo() {
+    ["cat", "dog", "cow"].forEach(type => {
+      document.getElementById(type + "Box").style.display = "none";
+      document.getElementById(type + "Btn").classList.remove("active");
+    });
+
+    count = 0;
+    updateCounter();
+  }
+
+  function updateCounter() {
+    document.getElementById("counter").innerText =
+      "Animals on screen: " + count;
+  }
+</script>
+
+</body>
 </html>
