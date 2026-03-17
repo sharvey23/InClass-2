@@ -2,10 +2,50 @@
 <html>
   <head>
     <title>In-Class Assignment 2</title>
+     <link rel="stylesheet" href="style.css">
   </head>
   <body>
     <h1>Welcome to the Interactive Reveal What’s that Animal UI</h1>
     <h1>Click on the buttons below to reveal the animal images</h1>
-    
+    <!-- Overlay -->
+  <div id="overlay" class="overlay"></div>
+
+  <!-- Popups -->
+  <div id="popup1" class="popup">
+    <img src="https://via.placeholder.com/300x200?text=Image+1">
+    <button onclick="closePopup()">Close</button>
+  </div>
+
+  <div id="popup2" class="popup">
+    <img src="https://via.placeholder.com/300x200?text=Image+2">
+    <button onclick="closePopup()">Close</button>
+  </div>
+
+  <div id="popup3" class="popup">
+    <img src="https://via.placeholder.com/300x200?text=Image+3">
+    <button onclick="closePopup()">Close</button>
+  </div>
+
+  <!-- Bottom Buttons -->
+  <div class="bottom-bar">
+    <button onclick="openPopup('popup1')">Left</button>
+    <button class="center-btn" onclick="openPopup('popup2')">Center</button>
+    <button onclick="openPopup('popup3')">Right</button>
+  </div>
+
+  <script>
+    function openPopup(id) {
+      document.getElementById('overlay').style.display = 'block';
+      document.getElementById(id).style.display = 'block';
+    }
+
+    function closePopup() {
+      document.getElementById('overlay').style.display = 'none';
+
+      document.querySelectorAll('.popup').forEach(p => {
+        p.style.display = 'none';
+      });
+    }
+  </script>
   </body>
 </html>
